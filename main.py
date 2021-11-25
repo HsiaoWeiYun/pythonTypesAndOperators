@@ -106,3 +106,20 @@ if __name__ == '__main__':
     print('{}除{}是{}'.format(10, 3, (10 / 3)))
     print('{1}除{0}是{2}'.format(3, 10, (10 / 3)))
     print('{n1}除{n2}是{n3}'.format(n1=10, n2=3, n3=10 / 3))
+    print('同樣也可以在{}裡面指定格式與型態')
+    print('{0:d}除{1:d}是{2:f}'.format(10, 3, 10 / 3))
+    print('{0:5d}除{1:5d}是{2:.2f}'.format(10, 3, 10 / 3))
+    #<向左靠齊 >向右靠齊 不指定預設向右靠齊
+    print('{0:<5d}除{1:>5d}是{2:.2f}'.format(10, 3, 10 / 3))
+    #位數不足欄位寬度時可補上指定位元在^前面指定
+    print('{0:$^5d}除{1:5d}是{2:.2f}'.format(10, 3, 10 / 3))
+    print()
+
+    print('format 也可以取得list元素、使用key取map內的值、存取模組內的名稱')
+    names = ['A', 'B', 'C']
+    print('Names: {n[0]},{n[1]},{n[2]}'.format(n = names))
+    data = {'A': 1,'B': 2,'C': 3}
+    print('A: {n[A]}, B: {n[B]}, C: {n[C]}'.format(n = data))
+    print('Platform: {pc.platform}'.format(pc = sys))
+    #format
+    print(format(3.14159, '.2f'))
