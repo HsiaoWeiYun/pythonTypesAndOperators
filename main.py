@@ -123,3 +123,54 @@ if __name__ == '__main__':
     print('Platform: {pc.platform}'.format(pc = sys))
     #format
     print(format(3.14159, '.2f'))
+
+    print()
+
+    print('python 3.6 之後開始支援 f-strings, {}內可支援運算式')
+
+    print(f'1 + 1 = { 1 + 1 }')
+
+    print(f'蕭的ascii: {ascii("蕭")}')
+
+    del names
+    name = 'Victor'
+    print(f'Hello {"Guest" if name == None else name}')
+
+    print('python 3.8 之後改良了f-strings 直接印出變數的部分, 方便log使用')
+    print(f'{name=}')
+    print(f'{name.upper()=}')
+    print(f'{name.lower()=}')
+
+    print(f'{name.encode("utf8")=}')
+    print(f'{type(name.encode("utf8"))=}')
+
+    print()
+    print('----------群集型態----------')
+    #list
+    numbers = [1,2,3]
+    print(f'{numbers=}')
+    numbers.append(4)
+    print(f'{numbers=}')
+    numbers[0] = 100
+    print(f'{numbers=}')
+    numbers.remove(100)
+    print(f'{numbers=}')
+    print(f'{2 in numbers=}')
+    del numbers[0]
+    print(f'{2 in numbers=}')
+    numbers.extend([10,20,30])
+    print(f'{numbers=}')
+    a = list('哈嚕你好')
+    print(f'{a=}')
+    #{}=set
+    a = list({'哈','嚕','哈','嚕'})
+    print(f'{a=}')
+    a = {1,2,3,3,4}
+    a.add(5)
+    print(f'{a=}')
+    b = {6,7}
+    r = a.copy()
+    r.update(b)
+    print(f'{r=}')
+    print(f'{a=}')
+    print(f'{b=}')
