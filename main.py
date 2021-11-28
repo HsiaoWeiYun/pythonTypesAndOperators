@@ -1,4 +1,5 @@
 import sys
+import decimal
 
 if __name__ == '__main__':
     # 0b開頭為二進位
@@ -109,26 +110,26 @@ if __name__ == '__main__':
     print('同樣也可以在{}裡面指定格式與型態')
     print('{0:d}除{1:d}是{2:f}'.format(10, 3, 10 / 3))
     print('{0:5d}除{1:5d}是{2:.2f}'.format(10, 3, 10 / 3))
-    #<向左靠齊 >向右靠齊 不指定預設向右靠齊
+    # <向左靠齊 >向右靠齊 不指定預設向右靠齊
     print('{0:<5d}除{1:>5d}是{2:.2f}'.format(10, 3, 10 / 3))
-    #位數不足欄位寬度時可補上指定位元在^前面指定
+    # 位數不足欄位寬度時可補上指定位元在^前面指定
     print('{0:$^5d}除{1:5d}是{2:.2f}'.format(10, 3, 10 / 3))
     print()
 
     print('format 也可以取得list元素、使用key取map內的值、存取模組內的名稱')
     names = ['A', 'B', 'C']
-    print('Names: {n[0]},{n[1]},{n[2]}'.format(n = names))
-    data = {'A': 1,'B': 2,'C': 3}
-    print('A: {n[A]}, B: {n[B]}, C: {n[C]}'.format(n = data))
-    print('Platform: {pc.platform}'.format(pc = sys))
-    #format
+    print('Names: {n[0]},{n[1]},{n[2]}'.format(n=names))
+    data = {'A': 1, 'B': 2, 'C': 3}
+    print('A: {n[A]}, B: {n[B]}, C: {n[C]}'.format(n=data))
+    print('Platform: {pc.platform}'.format(pc=sys))
+    # format
     print(format(3.14159, '.2f'))
 
     print()
 
     print('python 3.6 之後開始支援 f-strings, {}內可支援運算式')
 
-    print(f'1 + 1 = { 1 + 1 }')
+    print(f'1 + 1 = {1 + 1}')
 
     print(f'蕭的ascii: {ascii("蕭")}')
 
@@ -146,8 +147,8 @@ if __name__ == '__main__':
 
     print()
     print('----------群集型態----------')
-    #list
-    numbers = [1,2,3]
+    # list
+    numbers = [1, 2, 3]
     print(f'{numbers=}')
     numbers.append(4)
     print(f'{numbers=}')
@@ -158,19 +159,157 @@ if __name__ == '__main__':
     print(f'{2 in numbers=}')
     del numbers[0]
     print(f'{2 in numbers=}')
-    numbers.extend([10,20,30])
+    numbers.extend([10, 20, 30])
     print(f'{numbers=}')
     a = list('哈嚕你好')
     print(f'{a=}')
-    #{}=set
-    a = list({'哈','嚕','哈','嚕'})
+    # {}=set
+    a = list({'哈', '嚕', '哈', '嚕'})
     print(f'{a=}')
-    a = {1,2,3,3,4}
+    a = {1, 2, 3, 3, 4}
     a.add(5)
     print(f'{a=}')
-    b = {6,7}
+    b = {6, 7}
     r = a.copy()
     r.update(b)
     print(f'{r=}')
     print(f'{a=}')
     print(f'{b=}')
+    # 從其他可迭代的物件中建立set可用set()
+    print('從其他可迭代的物件中建立set可用set()')
+    a = set([1, 2, 3, 4, 4])
+    print(f'{a=}')
+    a = set((1, 2, 3, 4, 4))
+    print(f'{a=}')
+    # dict
+    print('字典用來儲存兩兩對應的鍵與值')
+    a = {'a': 1, 'b': 2, 'c': 3}
+    print(f'{a=}')
+    print(f'{a.get("a")=}')
+    print(f'{a.get("d")=}')
+    print(f'{a.get("d", 4)=}')
+    print('字典可以利用[]存取')
+    print(f'{a["b"]=}')
+    a["b"] = 100
+    print(f'{a["b"]=}')
+    print(f'測試key是否存在: {"c" in a = }')
+    print(f'{a.items()=}')
+    print(f'{a.keys()=}')
+    print(f'{a.values()=}')
+    print()
+
+    print('可以使用dict建立字典')
+    print(f'{dict(i=1,j=2)=}')
+    print(f'list轉dict: {dict([("i",1),("j",2)])=}')
+    print(f'key來源為list, 值統一, 建立dict: {dict.fromkeys(["i","j"], 100)=}')
+
+    print()
+    print('''
+    tuple是有序結構, 可以使用[]取得元素也能使用in查詢算是否存在,
+    不過tuple一旦建立就無法更動, 有時候想回傳一組相關的資料但又不想定義一個型態時好用,
+    或者希望某method不要修改傳入的資料時好用, 另外tuple所佔記憶體較小.
+    ''')
+
+    test = (10, 20)
+    print(f'{test=}')
+    # 會出錯
+    # test[0]=100
+    print(f'結尾是逗號也是建立tuple的方法之一 {10,20,30,=}')
+    print(f'或者採用括弧的方式,但是注意需要逗號結尾: {type((10,))=}')
+    print(f'否則: {type((10))=}')
+    q, w, e = (10, 20, 30,)
+    print(f'unpack tuple: {q=},{w=},{e=}')
+    print()
+
+    print('變數與運算子')
+    print('''
+    python屬於動態定型語言, 執行時期變數本身沒有型態資訊,
+    建立變數不用宣告型態, 變數就是一個參考到值的一個名稱,
+    指定運算只不過改變了參考而已, 舉例:
+    ''')
+    x = 10
+    y = 20
+
+    print(f'{id(x)=}, {id(y)=}')
+    y = 100
+    print(f'{id(x)=}, {id(y)=}')
+    list1 = [1,2,3]
+    list2 = [1,2,3]
+    list3 = list1
+    print(f'比較內容是否相等: {list1 == list2=}')
+    print(f'比較是否同個參考: {list1 is list2=}')
+    print(f'比較是否不同個參考: {list1 is not list2=}')
+    print(f'有幾個變數參考至此物件: {sys.getrefcount(list1)=}')
+
+    print()
+    print('----- 運算 -----')
+    print('處理小數')
+    a = decimal.Decimal("3.333")
+    b = decimal.Decimal("4.444")
+    print(f'{a=}, {b=}, {a+b=}, {type(a+b)=}')
+
+    print()
+    print('字串相加')
+    a = 'a'
+    b = 'b'
+    print(f'{a+b=}')
+    print(f'{a*10=}')
+    print('python不同型態間運算偏向不自動轉型, 所以字串與整數相加會報錯, 需要轉為相同型態才能運算')
+    #c = '1' + 1 會報錯
+
+    print('list相加會複製參考產生新的list')
+    list1 = [1, 2, 3]
+    list2 = [4, 5, 6]
+    #list3[0] 指向list1 ,list3[1] 指向list2, 所以當list1內容改變時list3內容也跟著變了
+    #但若是用相加的方式雖然也是複製參考但情況有點不同, 若變更list1[0] 但list3[0]的參考仍是同一個並不會改變
+    #我的理解是, 白話點, list1 + list2是參考到元素值, 而[list1, list2]這種方式是參考到list本身
+    #list3 = list1 + list2
+    list3 = [list1, list2]
+    print(f'{id(list3[0])=}, {id(list1[0])=}')
+    list1[0] = 'GG'
+    print(f'{list3=}, {list1=}')
+    print(f'{id(list3[0])=}, {id(list1[0])=}')
+
+    print()
+    print('海象運算子 :=')
+    print('''海象運算式讓值的賦值可以傳遞到表達式中 下列寫法
+    list = [1,2,3]
+    count = len(list)
+    if count > 2:
+        print('list length > 2')
+    可更精解為:
+    list = [1,2,3]
+    if(count:=len(list)) > 2:
+        print('list length > 2')
+        ''')
+    print()
+    print()
+    list = [1,2,3]
+    count = len(list)
+    if count > 2:
+        print('list length > 2')
+
+    if(count:=len(list)) > 2:
+        print('list length > 2')
+
+    print()
+    print('索引切片運算子, 只要具備索引特性基本上都能進行切片運算, 但為淺層複製,意思是只複製參考')
+    print('索引切片運算格式: [start:end] or [start:end:step] step為間隔')
+    list = [1,2,3,4,5,6,7,8]
+    print(f'{list[0:2]=}')
+    print(f'{list[3:8]=}')
+    print(f'{list[-5:-1]=}')
+    print(f'{list[5:]=}')
+    print(f'{list[:5]=}')
+    print(f'{list[:]=}')
+    print(f'{list[0:5:2]=}')
+
+    print()
+    print('拆解運算子 * **')
+    a,*b = list
+    print(f'{a=}, {b=}')
+    a, *b, c = list
+    print(f'{a=}, {b=}, {c=}')
+
+    a, *b = {'a': 1, 'b': 2, 'c': 3}
+    print(f'用*運算子拆解dict 得到的是key {a=}, {b=}')
